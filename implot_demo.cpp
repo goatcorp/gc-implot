@@ -869,7 +869,7 @@ void Demo_Images() {
     ImGui::SliderFloat2("UV1", &uv1.x, -2, 2, "%.1f");
     ImGui::ColorEdit4("Tint",&tint.x);
     if (ImPlot::BeginPlot("##image")) {
-        ImPlot::PlotImage("my image",ImGui::GetIO().Fonts->TexID, bmin, bmax, uv0, uv1, tint);
+        ImPlot::PlotImage("my image",ImGui::GetIO().Fonts->Textures[0].TexID, bmin, bmax, uv0, uv1, tint);
         ImPlot::EndPlot();
     }
 }
