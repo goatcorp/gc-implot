@@ -325,7 +325,9 @@ void ShowInputMapping() {
 
 void Demo_Config() {
     IMGUI_DEMO_MARKER("Config");
+#if 0 // BEGIN DALAMUD CUSTOM [FONT]
     ImGui::ShowFontSelector("Font");
+#endif // END DALAMUD CUSTOM [FONT]
     ImGui::ShowStyleSelector("ImGui Style");
     ImPlot::ShowStyleSelector("ImPlot Style");
     ImPlot::ShowColormapSelector("ImPlot Colormap");
@@ -1084,7 +1086,10 @@ void Demo_Images() {
         // We use the font atlas ImTextureRef for this demo, but in your real code when you submit
         // an image that you have loaded yourself, you would normally have a ImTextureID which works
         // just as well (as ImTextureRef can be constructed from ImTextureID).
+#if 0 // BEGIN DALAMUD CUSTOM [FONT]
         ImPlot::PlotImage("my image", ImGui::GetIO().Fonts->TexRef, bmin, bmax, uv0, uv1, tint);
+#endif // END DALAMUD CUSTOM [FONT]
+        ImPlot::PlotImage("my image", ImGui::GetShapeTexture()->GetTexRef(), bmin, bmax, uv0, uv1, tint); // DALAMUD CUSTOM [FONT]: no font atlas
 #else
         ImPlot::PlotImage("my image", ImGui::GetIO().Fonts->TexID, bmin, bmax, uv0, uv1, tint);
 #endif
@@ -2035,19 +2040,19 @@ void Demo_DragPoints() {
         ImPlotSpec spec;
         spec.Offset = 0;
         spec.Stride = sizeof(ImPlotPoint);
-        
+
         spec.LineColor = ImVec4(1,0.5f,1,1);
         spec.LineWeight = hovered[1]||held[1] ? 2.0f : 1.0f;
         ImPlot::PlotLine("##h1",&P[0].x, &P[0].y, 2, spec);
-        
+
         spec.LineColor = ImVec4(0,0.5f,1,1);
         spec.LineWeight = hovered[2]||held[2] ? 2.0f : 1.0f;
         ImPlot::PlotLine("##h2",&P[2].x, &P[2].y, 2, spec);
-        
+
         spec.LineColor = ImVec4(0,0.9f,0,1);
         spec.LineWeight = hovered[0]||held[0]||hovered[3]||held[3] ? 3.0f : 2.0f;
         ImPlot::PlotLine("##bez",&B[0].x, &B[0].y, 100, spec);
-        
+
         ImPlot::EndPlot();
     }
 }

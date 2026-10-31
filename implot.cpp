@@ -375,6 +375,7 @@ static const ImPlotStyleVarInfo* GetPlotStyleVarInfo(ImPlotStyleVar idx) {
 // Generic Helpers
 //-----------------------------------------------------------------------------
 
+#if 0 // BEGIN DALAMUD CUSTOM [FONT]
 void AddTextVertical(ImDrawList *DrawList, ImVec2 pos, ImU32 col, const char *text_begin, const char* text_end) {
     // the code below is based loosely on ImFont::RenderText
     if (!text_end)
@@ -422,6 +423,14 @@ void AddTextVertical(ImDrawList *DrawList, ImVec2 pos, ImU32 col, const char *te
     int chars_skp = chars_exp-chars_rnd;
     DrawList->PrimUnreserve(chars_skp*6, chars_skp*4);
 }
+#else
+    void AddTextVertical(ImDrawList *DrawList, ImVec2 pos, ImU32 col, const char *text_begin, const char* text_end) {
+    ImTextDesc desc;
+    ImGui::GetTextDesc(&desc);
+    const ImTextTransform transform = { ImVec2(0.0f, -1.0f), ImVec2(1.0f, 0.0f) };
+    ImGui::AddTextEx(DrawList, NULL, &desc, ImVec2(ImFloor(pos.x), ImFloor(pos.y)), col, text_begin, text_end, NULL, 0, &transform);
+}
+#endif // END DALAMUD CUSTOM [FONT]
 
 void AddTextCentered(ImDrawList* DrawList, ImVec2 top_center, ImU32 col, const char* text_begin, const char* text_end) {
     float txt_ht = ImGui::GetTextLineHeight();
